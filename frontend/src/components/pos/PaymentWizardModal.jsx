@@ -10,7 +10,8 @@ import {
   AlertTriangle, 
   Loader2,
   ChevronRight,
-  ShieldCheck
+  ShieldCheck,
+  Lock
 } from 'lucide-react';
 
 export default function PaymentWizardModal({
@@ -696,8 +697,9 @@ export default function PaymentWizardModal({
               >
                 {isSubmitting ? (
                   <>
-                    <Loader2 className="w-4 h-4 animate-spin" />
-                    <span>Saving...</span>
+                    <Loader2 className="w-4 h-4 animate-spin text-white" />
+                    <Lock className="w-3.5 h-3.5 text-white/80" />
+                    <span>Locking & Saving...</span>
                   </>
                 ) : (
                   <>

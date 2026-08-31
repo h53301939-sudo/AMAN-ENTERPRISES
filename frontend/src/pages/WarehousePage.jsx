@@ -3,7 +3,7 @@ import API from '../services/api';
 import LoadingSkeleton from '../components/common/LoadingSkeleton';
 import Modal from '../components/common/Modal';
 import { useToast } from '../context/ToastContext';
-import { Warehouse, AlertTriangle, ArrowRightLeft, ShieldAlert, Plus, Package } from 'lucide-react';
+import { Warehouse, AlertTriangle, ArrowRightLeft, ShieldAlert, Plus, Package, Loader2, Lock } from 'lucide-react';
 
 export default function WarehousePage() {
   const { toast } = useToast();
@@ -17,6 +17,10 @@ export default function WarehousePage() {
   const [remarks, setRemarks] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
+
+  // Locking & Spinner States
+  const [isAdjustSubmitting, setIsAdjustSubmitting] = useState(false);
+  const [isDamageSubmitting, setIsDamageSubmitting] = useState(false);
 
   const [damageForm, setDamageForm] = useState({
     productId: '',
@@ -50,6 +54,8 @@ export default function WarehousePage() {
 
   const handleAdjustSubmit = async (e) => {
     e.preventDefault();
+    if (isAdjustSubmitting) return;
+    setIsAdjustSubmitting(true);
     try {
       await API.post('/warehouse/adjust', {
         productId: selectedProduct._id,
@@ -61,11 +67,15 @@ export default function WarehousePage() {
       fetchWarehouseStock();
     } catch (err) {
       toast.error(err.response?.data?.message || 'Failed to adjust stock', 'Error');
+    } finally {
+      setIsAdjustSubmitting(false);
     }
   };
 
   const handleDamageSubmit = async (e) => {
     e.preventDefault();
+    if (isDamageSubmitting) return;
+    setIsDamageSubmitting(true);
     try {
       await API.post('/damages', damageForm);
       toast.success('Damaged/broken stock logged & deducted successfully! ⚠️', 'Damage Recorded');
@@ -73,6 +83,8 @@ export default function WarehousePage() {
       fetchWarehouseStock();
     } catch (err) {
       toast.error(err.response?.data?.message || 'Failed to log damage', 'Error');
+    } finally {
+      setIsDamageSubmitting(false);
     }
   };
 
@@ -272,8 +284,20 @@ export default function WarehousePage() {
             />
           </div>
 
-          <button type="submit" className="w-full py-3 bg-pepsi-blue text-white font-bold rounded-xl hover:bg-blue-700 transition">
-            Commit Box Stock Adjustment
+          <button 
+            type="submit" 
+            disabled={isAdjustSubmitting}
+            className="w-full py-3 bg-pepsi-blue text-white font-bold rounded-xl hover:bg-blue-700 transition disabled:opacity-60 flex items-center justify-center space-x-2"
+          >
+            {isAdjustSubmitting ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin text-white" />
+                <Lock className="w-3.5 h-3.5 text-white/80" />
+                <span>Processing Adjustment...</span>
+              </>
+            ) : (
+              <span>Commit Box Stock Adjustment</span>
+            )}
           </button>
         </form>
       </Modal>
@@ -327,8 +351,20 @@ export default function WarehousePage() {
             </div>
           </div>
 
-          <button type="submit" className="w-full py-3 bg-red-600 text-white font-bold rounded-xl hover:bg-red-700 transition">
-            Deduct & Record Damage
+          <button 
+            type="submit" 
+            disabled={isDamageSubmitting}
+            className="w-full py-3 bg-red-600 text-white font-bold rounded-xl hover:bg-red-700 transition disabled:opacity-60 flex items-center justify-center space-x-2"
+          >
+            {isDamageSubmitting ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin text-white" />
+                <Lock className="w-3.5 h-3.5 text-white/80" />
+                <span>Recording Damage...</span>
+              </>
+            ) : (
+              <span>Deduct & Record Damage</span>
+            )}
           </button>
         </form>
       </Modal>

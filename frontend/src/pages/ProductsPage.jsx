@@ -3,7 +3,7 @@ import API from '../services/api';
 import LoadingSkeleton from '../components/common/LoadingSkeleton';
 import Modal from '../components/common/Modal';
 import { useToast } from '../context/ToastContext';
-import { Plus, Search, Edit2, Trash2, Package, AlertCircle, AlertTriangle, TrendingUp, Loader2 } from 'lucide-react';
+import { Plus, Search, Edit2, Trash2, Package, AlertCircle, AlertTriangle, TrendingUp, Loader2, Lock } from 'lucide-react';
 
 export default function ProductsPage() {
   const { toast } = useToast();
@@ -599,7 +599,8 @@ export default function ProductsPage() {
             >
               {isSubmitting ? (
                 <>
-                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <Loader2 className="w-4 h-4 animate-spin text-white" />
+                  <Lock className="w-3.5 h-3.5 text-white/80" />
                   <span>SAVING ITEM...</span>
                 </>
               ) : (

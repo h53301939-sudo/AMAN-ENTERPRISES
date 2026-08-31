@@ -3,7 +3,7 @@ import API from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 import LoadingSkeleton from '../components/common/LoadingSkeleton';
-import { Warehouse, CheckCircle, Plus, Trash2, Loader2, Truck, AlertTriangle, RotateCcw, ClipboardList } from 'lucide-react';
+import { Warehouse, CheckCircle, Plus, Trash2, Loader2, Truck, AlertTriangle, RotateCcw, ClipboardList, Lock } from 'lucide-react';
 
 export default function VehicleLoadingPage() {
   const { user } = useAuth();
@@ -336,7 +336,8 @@ export default function VehicleLoadingPage() {
             >
               {isSubmitting ? (
                 <>
-                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <Loader2 className="w-4 h-4 animate-spin text-white" />
+                  <Lock className="w-3.5 h-3.5 text-white/80" />
                   <span>Transferring Boxes...</span>
                 </>
               ) : (

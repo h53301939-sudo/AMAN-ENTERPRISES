@@ -310,7 +310,8 @@ export default function Login() {
               >
                 {loading ? (
                   <>
-                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <Loader2 className="w-4 h-4 animate-spin text-white" />
+                    <Lock className="w-3.5 h-3.5 text-white/80" />
                     <span>Signing In...</span>
                   </>
                 ) : (
