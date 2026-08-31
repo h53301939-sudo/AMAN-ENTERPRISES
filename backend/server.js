@@ -33,7 +33,7 @@ connectDB().then(async () => {
 // Configure CORS using FRONTEND_URL env variable
 const allowedOrigins = process.env.FRONTEND_URL
   ? process.env.FRONTEND_URL.split(',').map(url => url.trim())
-  : ['http://localhost:3000', 'http://localhost:5173', 'https://pepsi-flame.vercel.app'];
+  : ['http://localhost:3000', 'http://localhost:5173', 'https://aman-enterprises.vercel.app', 'https://pepsi-flame.vercel.app'];
 
 const corsOptions = {
   origin: (origin, callback) => {

@@ -1,0 +1,13 @@
+# Render.com Infrastructure Blueprint for Aman Enterprises ERP Backend
+services:
+  - type: web
+    name: aman-enterprises-backend
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        value: aman_enterprises_production_secret_key_2026_x892
