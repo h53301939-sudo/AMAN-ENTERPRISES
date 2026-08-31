@@ -1,0 +1,29 @@
+{
+  "name": "pepsi-backend",
+  "version": "1.0.0",
+  "description": "Backend API for Pepsi Warehouse & Van Sales Management System",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "build": "echo Backend server is ready (no build step needed)",
+    "seed": "node seeders/seedData.js",
+    "create-admin": "node createAdmin.js"
+  },
+  "dependencies": {
+    "@whiskeysockets/baileys": "^7.0.0-rc14",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "exceljs": "^4.4.0",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb-memory-server": "^10.0.0",
+    "mongoose": "^8.5.2",
+    "multer": "^1.4.5-lts.1",
+    "pdfkit": "^0.15.0",
+    "pino": "^10.3.1",
+    "qrcode": "^1.5.4"
+  }
+}
