@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import Modal from '../common/Modal';
-import { Printer, Download, CheckCircle, Clock, Send, Share2, MessageCircle, FileText, Loader2, Phone, Zap, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Printer, Download, CheckCircle, Clock, Send, Share2, MessageCircle, FileText, Loader2, Phone, Zap, CheckCircle2, AlertCircle, Lock } from 'lucide-react';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import API from '../../services/api';
@@ -170,17 +170,19 @@ export default function InvoiceModal({ isOpen, onClose, sale, isNewSale = false 
           <div className="flex items-center space-x-2">
             <button
               onClick={handlePrint}
-              className="flex items-center space-x-1.5 px-3.5 py-2 text-xs font-semibold rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-600 transition"
+              className="flex items-center space-x-1.5 px-3.5 py-2 text-xs font-semibold rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-600 transition cursor-pointer"
             >
               <Printer className="w-3.5 h-3.5" />
+              <Lock className="w-3 h-3 opacity-60" />
               <span>Print</span>
             </button>
             <button
               onClick={handleDownloadPdf}
               disabled={isGeneratingPdf}
-              className="flex items-center space-x-1.5 px-3.5 py-2 text-xs font-semibold rounded-xl bg-blue-600 text-white hover:bg-blue-700 shadow transition disabled:opacity-50"
+              className="flex items-center space-x-1.5 px-3.5 py-2 text-xs font-semibold rounded-xl bg-blue-600 text-white hover:bg-blue-700 shadow transition disabled:opacity-50 cursor-pointer"
             >
               <Download className="w-3.5 h-3.5" />
+              <Lock className="w-3 h-3 opacity-80" />
               <span>{isGeneratingPdf ? 'Generating...' : 'Download PDF'}</span>
             </button>
           </div>

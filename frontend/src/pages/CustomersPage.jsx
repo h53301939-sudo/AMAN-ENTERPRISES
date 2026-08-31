@@ -261,9 +261,10 @@ export default function CustomersPage() {
         </div>
         <button
           onClick={handleOpenAddCustomer}
-          className="flex items-center space-x-2 px-4 py-2.5 bg-[#DC2626] hover:bg-blue-700 text-white rounded-xl font-extrabold text-xs shadow-md transition active:scale-95"
+          className="flex items-center space-x-2 px-4 py-2.5 bg-[#DC2626] hover:bg-blue-700 text-white rounded-xl font-extrabold text-xs shadow-md transition active:scale-95 cursor-pointer"
         >
           <Plus className="w-4 h-4" />
+          <Lock className="w-3.5 h-3.5 opacity-80" />
           <span>+ Add New Customer Shop</span>
         </button>
       </div>
@@ -380,18 +381,20 @@ export default function CustomersPage() {
             <div className="grid grid-cols-2 gap-2 pt-1">
               <button
                 onClick={() => handleOpenCustomerDetails(c)}
-                className="w-full py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-800 dark:text-white font-bold text-xs rounded-xl transition flex items-center justify-center space-x-1.5"
+                className="w-full py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-800 dark:text-white font-bold text-xs rounded-xl transition flex items-center justify-center space-x-1.5 cursor-pointer"
               >
                 <Receipt className="w-3.5 h-3.5 text-[#DC2626]" />
+                <Lock className="w-3 h-3 opacity-60" />
                 <span>All Invoices</span>
               </button>
 
               <button
                 onClick={() => handleOpenPayment(c)}
                 disabled={c.outstandingBalance <= 0}
-                className="w-full py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl disabled:opacity-40 transition flex items-center justify-center space-x-1 shadow-sm"
+                className="w-full py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl disabled:opacity-40 transition flex items-center justify-center space-x-1 shadow-sm cursor-pointer"
               >
                 <DollarSign className="w-3.5 h-3.5" />
+                <Lock className="w-3.5 h-3.5 opacity-80" />
                 <span>Collect Due</span>
               </button>
             </div>
@@ -574,11 +577,12 @@ export default function CustomersPage() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full py-3.5 bg-[#DC2626] text-white font-extrabold rounded-xl hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition text-sm shadow-md flex items-center justify-center space-x-2"
+            className="w-full py-3.5 bg-[#DC2626] text-white font-extrabold rounded-xl hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition text-sm shadow-md flex items-center justify-center space-x-2 cursor-pointer"
           >
             {isSubmitting ? (
               <>
                 <Loader2 className="w-4 h-4 animate-spin" />
+                <Lock className="w-3.5 h-3.5 text-white/80" />
                 <span>SAVING CUSTOMER...</span>
               </>
             ) : (

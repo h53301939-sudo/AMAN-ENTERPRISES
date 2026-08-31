@@ -15,7 +15,9 @@ import {
   BarChart2,
   Banknote,
   CreditCard,
-  DollarSign
+  DollarSign,
+  Lock,
+  Loader2
 } from 'lucide-react';
 
 export default function WorkersPage() {
@@ -139,9 +141,10 @@ export default function WorkersPage() {
         </div>
         <button
           onClick={handleOpenAddModal}
-          className="flex items-center justify-center space-x-2 px-4 py-2.5 bg-pepsi-blue text-white rounded-xl font-bold text-xs shadow-md shadow-blue-600/20 hover:bg-blue-700 transition active:scale-95"
+          className="flex items-center justify-center space-x-2 px-4 py-2.5 bg-pepsi-blue text-white rounded-xl font-bold text-xs shadow-md shadow-blue-600/20 hover:bg-blue-700 transition active:scale-95 cursor-pointer"
         >
           <Plus className="w-4 h-4" />
+          <Lock className="w-3.5 h-3.5 opacity-80" />
           <span>Register New Salesman</span>
         </button>
       </div>

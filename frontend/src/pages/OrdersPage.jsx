@@ -30,7 +30,8 @@ import {
   ShoppingBag,
   ExternalLink,
   Store,
-  ChevronRight
+  ChevronRight,
+  Lock
 } from 'lucide-react';
 
 export default function OrdersPage() {

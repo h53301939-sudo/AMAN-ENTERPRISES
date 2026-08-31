@@ -3,7 +3,7 @@ import API from '../services/api';
 import LoadingSkeleton from '../components/common/LoadingSkeleton';
 import Modal from '../components/common/Modal';
 import { useToast } from '../context/ToastContext';
-import { Truck, Plus, User, CheckCircle, Package, Edit2, Trash2 } from 'lucide-react';
+import { Truck, Plus, User, CheckCircle, Package, Edit2, Trash2, Lock, Loader2 } from 'lucide-react';
 
 export default function VehiclesPage() {
   const { toast } = useToast();
@@ -12,6 +12,7 @@ export default function VehiclesPage() {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingVehicle, setEditingVehicle] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [formData, setFormData] = useState({
     vehicleNumber: '',
@@ -109,9 +110,10 @@ export default function VehiclesPage() {
         </div>
         <button
           onClick={handleOpenAddModal}
-          className="flex items-center space-x-2 px-4 py-2.5 bg-pepsi-blue text-white rounded-xl font-bold text-xs shadow hover:bg-blue-700 transition"
+          className="flex items-center space-x-2 px-4 py-2.5 bg-pepsi-blue text-white rounded-xl font-bold text-xs shadow hover:bg-blue-700 transition cursor-pointer"
         >
           <Plus className="w-4 h-4" />
+          <Lock className="w-3.5 h-3.5 opacity-80" />
           <span>Add Delivery Vehicle</span>
         </button>
       </div>
@@ -267,8 +269,20 @@ export default function VehiclesPage() {
             </select>
           </div>
 
-          <button type="submit" className="w-full py-3 bg-pepsi-blue text-white font-bold rounded-xl hover:bg-blue-700 transition">
-            {editingVehicle ? 'Save Vehicle Changes' : 'Save Vehicle'}
+          <button 
+            type="submit" 
+            disabled={isSubmitting}
+            className="w-full py-3 bg-pepsi-blue text-white font-bold rounded-xl hover:bg-blue-700 disabled:opacity-50 transition flex items-center justify-center space-x-2 cursor-pointer"
+          >
+            {isSubmitting ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin text-white" />
+                <Lock className="w-3.5 h-3.5 text-white/80" />
+                <span>Saving Vehicle...</span>
+              </>
+            ) : (
+              <span>{editingVehicle ? 'Save Vehicle Changes' : 'Save Vehicle'}</span>
+            )}
           </button>
         </form>
       </Modal>
