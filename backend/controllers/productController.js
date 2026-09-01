@@ -86,7 +86,9 @@ const createProduct = async (req, res) => {
       return res.status(400).json({ message: 'Hangers in 1 Box must be greater than 0' });
     }
 
-    const cleanHangerPrice = Number((rawBoxPrice / cleanHangersPerBox).toFixed(2));
+    // Auto-calculate single hanger selling price: Math.ceil(BoxPrice / Hangers) + ₹1 Loose Surcharge
+    const looseSurcharge = 1;
+    const cleanHangerPrice = Math.ceil(rawBoxPrice / cleanHangersPerBox) + looseSurcharge;
     const cleanSealedStock = Number(sealedBoxStock !== undefined ? sealedBoxStock : (warehouseStock !== undefined ? warehouseStock : 0));
     const cleanLooseStock = Number(looseHangerStock || 0);
 
@@ -112,6 +114,7 @@ const createProduct = async (req, res) => {
       boxPrice: rawBoxPrice,
       sellingPrice: rawBoxPrice,
       hangersPerBox: cleanHangersPerBox,
+      looseHangerSurcharge: looseSurcharge,
       hangerPrice: cleanHangerPrice,
       sellFullBox: Boolean(sellFullBox),
       sellIndividualHanger: Boolean(sellIndividualHanger),
@@ -141,7 +144,7 @@ const updateProduct = async (req, res) => {
     const product = await Product.findById(req.params.id);
 
     if (!product) {
-      return res.status(404).json({ message: 'Product not found' });
+      return res.status(404).json({ message: 'Product not found. The item may have been removed or deleted.' });
     }
 
     const fields = [
@@ -176,7 +179,8 @@ const updateProduct = async (req, res) => {
       product.warehouseStock = s;
     }
     if (product.hangersPerBox > 0 && product.boxPrice > 0) {
-      product.hangerPrice = Number((product.boxPrice / product.hangersPerBox).toFixed(2));
+      const looseSurcharge = 1;
+      product.hangerPrice = Math.ceil(product.boxPrice / product.hangersPerBox) + looseSurcharge;
     }
 
     const cP = Number(product.purchasePrice || 0);
